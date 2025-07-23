@@ -1,0 +1,22 @@
+import { NavLink } from "react-router-dom";
+import styles from "../components/PageNavigation.module.css";
+
+function PageNavigation() {
+  return (
+    <nav className={styles.nav}>
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Pricing">Pricing</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Product">Product</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default PageNavigation;

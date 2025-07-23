@@ -1,5 +1,11 @@
+import PageNavigation from "../components/PageNavigation";
+
 function Homepage() {
-  return <div>Worldwise</div>;
+  return (
+    <div>
+      <PageNavigation />
+    </div>
+  );
 }
 
 export default Homepage;
