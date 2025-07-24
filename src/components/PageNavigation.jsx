@@ -6,13 +6,13 @@ function PageNavigation() {
     <nav className={styles.nav}>
       <ul>
         <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
           <NavLink to="/Pricing">Pricing</NavLink>
         </li>
         <li>
           <NavLink to="/Product">Product</NavLink>
+        </li>
+        <li>
+          <NavLink to="/login">Login</NavLink>
         </li>
       </ul>
     </nav>
