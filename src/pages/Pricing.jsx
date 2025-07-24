@@ -1,9 +1,11 @@
 // Uses the same styles as Product
+import PageNavigation from "../components/PageNavigation";
 import styles from "./Product.module.css";
 
 export default function Product() {
   return (
     <main className={styles.product}>
+      <PageNavigation />
       <section>
         <div>
           <h2>
