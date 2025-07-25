@@ -1,5 +1,12 @@
+// import PageNavigation from "../components/PageNavigation";
+import Sidebar from "../components/Sidebar";
+
 function AppLayout() {
-  return <div>app</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }
 
 export default AppLayout;
