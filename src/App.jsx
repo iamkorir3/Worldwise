@@ -4,6 +4,7 @@ import Pricing from "./pages/Pricing";
 import Homepage from "./pages/Homepage";
 import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
+import CityList from "./components/CityList";
 
 export default function App() {
   return (
@@ -13,8 +14,8 @@ export default function App() {
         <Route path="product" element={<Product />} />
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
-          <Route index element={<p>List</p>} />
-          <Route path="cities" element={<p>List of cities</p>} />
+          <Route index element={<CityList />} />
+          <Route path="cities" element={<CityList />} />
           <Route path="countries" element={<p>counties</p>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>
