@@ -1,5 +1,7 @@
 import { createContext } from "react";
 
+const BASE_URL = "http://localhost:8000";
+
 const CitiesContext = createContext();
 
 function CitiesProvider({ children }) {
@@ -25,4 +27,5 @@ function CitiesProvider({ children }) {
   }, []);
 }
 
-export { CitiesProvider  CitiesProvider };
+// export { CitiesProvider };
+export { CitiesProvider };
