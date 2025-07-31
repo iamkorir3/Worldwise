@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
+import { useEffect, useState } from "react";
 
 const BASE_URL = "http://localhost:8000";
 
@@ -25,7 +26,23 @@ function CitiesProvider({ children }) {
 
     fetchcities();
   }, []);
+
+  return (
+    <CitiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+      }}
+    >
+      {children}
+    </CitiesContext.Provider>
+  );
 }
 
-// export { CitiesProvider };
-export { CitiesProvider };
+function useCities() {
+  const context = useContext(CitiesContext);
+  if (context === undefined) throw new Error("improper use");
+  return context;
+}
+
+export { CitiesProvider, useCities };
