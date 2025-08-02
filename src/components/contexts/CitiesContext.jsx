@@ -6,7 +6,6 @@ const BASE_URL = "http://localhost:8000";
 const CitiesContext = createContext();
 
 function CitiesProvider({ children }) {
-  console.log(CitiesContext);
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({});
