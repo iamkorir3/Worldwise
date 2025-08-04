@@ -18,5 +18,6 @@ function CityList() {
     </ul>
   );
 }
+console.log("temp");
 
 export default CityList;
