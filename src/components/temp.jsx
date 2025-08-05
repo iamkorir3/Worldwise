@@ -27,19 +27,6 @@ function CitiesProvider({ children }) {
     fetchcities();
   }, []);
 
-  async function getCity(id) {
-    try {
-      setIsLoading(true);
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      setCurrentCity(data);
-    } catch {
-      alert("error loading");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return (
     <CitiesContext.Provider
       value={{
@@ -52,6 +39,18 @@ function CitiesProvider({ children }) {
       {children}
     </CitiesContext.Provider>
   );
+  async function getCity(id) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities/${id}`);
+      const data = await res.json();
+      setCurrentCity(data);
+    } catch {
+      alert("error loading");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 }
 
 function useCities() {
@@ -61,3 +60,11 @@ function useCities() {
 }
 
 export { CitiesProvider, useCities };
+
+const formatDate = (date) =>
+  new Intl.DateTimeFormat("en", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    weekday: "long",
+  }).format(new Date(date));
