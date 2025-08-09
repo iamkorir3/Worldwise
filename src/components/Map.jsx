@@ -14,6 +14,11 @@ function Map() {
 
   console.log(simple);
   console.log(navigate);
+  // async function temp() {
+  //   console.log(cities);
+  // }
+
+  // temp();
 
   // const lat = searchParams.get("let");
   // const lng = searchParams.get("lng");
@@ -31,11 +36,12 @@ function Map() {
         />
         {cities.map((city) => (
           <Marker
-            position={[cities.position.lat, cities.position.lng]}
+            position={[city.position.lat, city.position.lng]}
             key={city.id}
           >
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <span>{city.emoji}</span>
+              <span>{city.cityName}</span>
             </Popup>
           </Marker>
         ))}
