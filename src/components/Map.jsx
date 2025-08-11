@@ -35,7 +35,7 @@ function Map() {
       <MapContainer
         className={styles.map}
         center={mapPosition}
-        zoom={13}
+        zoom={5}
         scrollWheelZoom={true}
       >
         <TileLayer
@@ -53,7 +53,7 @@ function Map() {
             </Popup>
           </Marker>
         ))}
-        <ChangeCenter position={(mapLat || 40, mapLng || 0)} />
+        <ChangeCenter position={[mapLat, mapLng]} />
       </MapContainer>
     </div>
   );
@@ -61,7 +61,10 @@ function Map() {
 
 function ChangeCenter({ position }) {
   const map = useMap();
+  console.log(map);
+  console.log(position);
   map.setView(position);
+
   return null;
 }
 
