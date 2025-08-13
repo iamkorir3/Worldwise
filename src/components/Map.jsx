@@ -12,7 +12,6 @@ function Map() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const simple = [setMapPosition, searchParams, setSearchParams];
-
   console.log(simple);
   console.log(navigate);
   // async function temp() {
@@ -53,7 +52,7 @@ function Map() {
             </Popup>
           </Marker>
         ))}
-        <ChangeCenter position={[mapLat, mapLng]} />
+        <ChangeCenter position={[mapLat || 40, mapLng || 0]} />
       </MapContainer>
     </div>
   );
@@ -61,8 +60,6 @@ function Map() {
 
 function ChangeCenter({ position }) {
   const map = useMap();
-  console.log(map);
-  console.log(position);
   map.setView(position);
 
   return null;
