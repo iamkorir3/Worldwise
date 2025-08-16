@@ -14,9 +14,6 @@ function Map() {
   const simple = [setMapPosition, searchParams, setSearchParams];
   console.log(simple);
   console.log(navigate);
-  // async function temp() {
-  //   console.log(cities);
-  // }
 
   // temp();
 
