@@ -72,7 +72,7 @@ function DetectClick() {
   const navigate = useNavigate();
 
   useMapEvents({
-    click: (e) => navigate("form"),
+    click: () => navigate("form"),
   });
 }
 
