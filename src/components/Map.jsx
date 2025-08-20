@@ -44,6 +44,13 @@ function Map() {
     },
     [geolocationposition]
   );
+  useEffect(
+    function () {
+      if (geolocationposition)
+        setMapPosition([geolocationposition.lat, geolocationposition.lng]);
+    },
+    [geolocationposition]
+  );
   return (
     <div className={styles.mapContainer}>
       <Button type={"position"} onClick={getPosition}>
