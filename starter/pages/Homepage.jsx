@@ -1,9 +1,12 @@
 import styles from "./Homepage.module.css";
+import Navigation from "../components/PortfolioNav";
 
 export default function Homepage() {
   return (
     <main className={styles.homepage}>
       <section>
+        <Navigation />
+
         <h1>
           You travel the world.
           <br />
