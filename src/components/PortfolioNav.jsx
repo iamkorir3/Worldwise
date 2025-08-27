@@ -2,7 +2,7 @@ import { Navlink } from "react-router-dom";
 export default function Navigation() {
   return (
     <div>
-      <ul>
+      <ul style={{ backgroundColor: "red" }}>
         <li>
           <Navlink to="">Home</Navlink>
         </li>
