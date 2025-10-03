@@ -1,10 +1,11 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./Form.module.css";
 import Button from "./Button";
 import BackButton from "./BackButton";
+import useUrlPosition from "./hooks/useUrlPosition";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -14,12 +15,42 @@ export function convertToEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
+const BAse_Url = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+
 function Form() {
+  const [isLoadingGeoloading, setIsLoadingGeoloading] = useState(false);
+  console.log(isLoadingGeoloading);
+  const { lat, lng } = useUrlPosition();
   const [cityName, setCityName] = useState("");
-  // const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
+  const [emoji, setEmoji] = useState("");
 
+  useEffect(
+    function () {
+      async function fetchCityData() {
+        try {
+          setIsLoadingGeoloading(true);
+          const res = await fetch(
+            `${BAse_Url}??latitude=${lat}&longitude=${lng}`
+          );
+          const data = await res.json();
+          setCountry(data.country);
+          setCityName(data.cityName);
+          console.log(data);
+
+          setEmoji(convertToEmoji(data.countryCode));
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setIsLoadingGeoloading(false);
+        }
+      }
+      fetchCityData();
+    },
+    [lat, lng]
+  );
   return (
     <form className={styles.form}>
       <div className={styles.row}>
@@ -29,7 +60,10 @@ function Form() {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        <span className={styles.flag}>
+          {country}
+          {emoji}
+        </span>
       </div>
 
       <div className={styles.row}>
