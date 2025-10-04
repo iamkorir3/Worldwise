@@ -11,8 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import { useCities } from "./contexts/CitiesContext";
 import { useGeolocation } from "./hooks/useGeolocation";
-import useUrlPosition from "./hooks/useUrlPosition";
+// import useUrlPosition from "./hooks/useUrlPosition";
 import Button from "./Button";
+// import { useSearchParams } from "react-router-dom";
 
 function Map() {
   const { cities } = useCities();
@@ -26,10 +27,10 @@ function Map() {
   const simple = [setMapPosition, searchParams, setSearchParams];
   console.log(simple);
 
-  const { mapLat, mapLng } = useUrlPosition();
+  // const { mapLat, mapLng } = useUrlPosition();
 
-  // const mapLng = searchParams.get("lat");
-  // const mapLat = searchParams.get("lng");
+  const mapLng = searchParams.get("lat");
+  const mapLat = searchParams.get("lng");
 
   useEffect(
     function () {
