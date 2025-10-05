@@ -1,12 +1,16 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
+import Message from "./Message";
 import styles from "./Form.module.css";
 import Button from "./Button";
 import BackButton from "./BackButton";
-import { useSearchParams } from "react-router-dom";
-// import useUrlPosition from "./hooks/useUrlPosition";
+// import { useSearchParams } from "react-router-dom";
+import useUrlPosition from "./hooks/useUrlPosition";
+import { useCities } from "./contexts/CitiesContext";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -21,33 +25,59 @@ const BAse_Url = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 function Form() {
   const [isLoadingGeoloading, setIsLoadingGeoloading] = useState(false);
   console.log(isLoadingGeoloading);
-  // const { lat, lng } = useUrlPosition();
+  const { lat, lng } = useUrlPosition();
   const [cityName, setCityName] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log(setSearchParams);
   const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
   const [emoji, setEmoji] = useState("");
 
-  const lng = searchParams.get("lat");
-  const lat = searchParams.get("lng");
+  const { CreateCity } = useCities();
+
+  const [geoCodingError, seGeoCodingError] = useState("");
+  console.log(geoCodingError);
+  // const [tstciu, settstciu] = useState({});
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const lng = searchParams.get("lat");
+  // const lat = searchParams.get("lng");
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!cityName || !date) return;
+
+    const newCity = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: { lat, lng },
+    };
+
+    CreateCity(newCity);
+  }
   useEffect(
     function () {
+      // if (!lat && !lng) return;
       async function fetchCityData() {
         try {
           setIsLoadingGeoloading(true);
+          seGeoCodingError("");
           const res = await fetch(
             `${BAse_Url}??latitude=${lat}&longitude=${lng}`
           );
           const data = await res.json();
-          setCountry(data.country);
-          setCityName(data.cityName);
-          console.log(data);
+
+          // if (!data.countryCode)
+          //   throw new Error("That doesn't seem to be correct, Click elsewhere");
+          setCountry(data.country || "");
+          setCityName(data.city || data.locality || "");
+          console.log(data.city || data.locality || "");
 
           setEmoji(convertToEmoji(data.countryCode));
         } catch (err) {
-          console.log(err);
+          seGeoCodingError(err);
         } finally {
           setIsLoadingGeoloading(false);
         }
@@ -56,8 +86,12 @@ function Form() {
     },
     [lat, lng]
   );
+
+  if (geoCodingError) return <Message Message={geoCodingError} />;
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      {console.log(cityName)}
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
@@ -65,6 +99,7 @@ function Form() {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
+
         <span className={styles.flag}>
           {country}
           {emoji}
@@ -73,10 +108,16 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input
-          id="date"
+        {/* <input
+         
           onChange={(e) => setDate(e.target.value)}
           value={date}
+        /> */}
+        <DatePicker
+          id="date"
+          onChange={(date) => setDate(date)}
+          selected={date}
+          dateFormat="dd/MM/yyyy"
         />
       </div>
 

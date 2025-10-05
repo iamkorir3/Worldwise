@@ -13,7 +13,6 @@ import { useCities } from "./contexts/CitiesContext";
 import { useGeolocation } from "./hooks/useGeolocation";
 import useUrlPosition from "./hooks/useUrlPosition";
 import Button from "./Button";
-// import { useSearchParams } from "react-router-dom";
 
 function Map() {
   const { cities } = useCities();
@@ -24,8 +23,8 @@ function Map() {
     position: geolocationposition,
     getPosition,
   } = useGeolocation();
-  const simple = [setMapPosition, searchParams, setSearchParams];
-  console.log(simple);
+
+  console.log(searchParams);
 
   const { mapLat, mapLng } = useUrlPosition();
 
@@ -82,7 +81,7 @@ function Map() {
           </Marker>
         ))}
         <ChangeCenter position={[mapLat || 40, mapLng || 0]} />
-        <DetectClick />
+        <DetectClick setSearchParams={setSearchParams} />
       </MapContainer>
     </div>
   );
@@ -95,12 +94,13 @@ function ChangeCenter({ position }) {
   return null;
 }
 
-function DetectClick() {
+function DetectClick({ setSearchParams }) {
   const navigate = useNavigate();
 
   useMapEvents({
     click: (e) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
   });
+  console.log(setSearchParams());
 }
 
 export default Map;
