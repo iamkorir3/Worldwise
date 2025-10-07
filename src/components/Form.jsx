@@ -37,7 +37,6 @@ function Form() {
   const [geoCodingError, seGeoCodingError] = useState("");
   console.log(geoCodingError);
   // const [tstciu, settstciu] = useState({});
-
   // const [searchParams, setSearchParams] = useSearchParams();
   // const lng = searchParams.get("lat");
   // const lat = searchParams.get("lng");
@@ -68,7 +67,7 @@ function Form() {
             `${BAse_Url}??latitude=${lat}&longitude=${lng}`
           );
           const data = await res.json();
-
+          //DJ+3gXfxw?PPGuT
           // if (!data.countryCode)
           //   throw new Error("That doesn't seem to be correct, Click elsewhere");
           setCountry(data.country || "");
