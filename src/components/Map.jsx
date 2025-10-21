@@ -27,8 +27,8 @@ function Map() {
     getPosition,
   } = useGeolocation();
 
-  const [cyty, setCyty] = useState("");
-  console.log(cyty);
+  // const [cyty, setCyty] = useState("");
+  // console.log(cyty);
 
   console.log(searchParams);
 
@@ -77,22 +77,18 @@ function Map() {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
 
-        {cities.map(
-          (city) => (
-            setCyty(city.position.lat),
-            (
-              <Marker
-                position={[city.position.lat, city.position.lng]}
-                key={city.id}
-              >
-                <Popup>
-                  <span>{city.emoji}</span>
-                  <span>{city.cityName}</span>
-                </Popup>
-              </Marker>
-            )
-          )
-        )}
+        {cities.map((city) => (
+          // setCyty(city.position.lat || 20),
+          <Marker
+            position={[city.position.lat || 10, city.position.lng || 20]}
+            key={city.id}
+          >
+            <Popup>
+              <span>{city.emoji}</span>
+              <span>{city.cityName}</span>
+            </Popup>
+          </Marker>
+        ))}
 
         <ChangeCenter position={[mapLat || 40, mapLng || 0]} />
         <DetectClick setSearchParams={setSearchParams} />
