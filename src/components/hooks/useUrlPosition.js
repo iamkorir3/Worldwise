@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function useUrlPosition() {
   const [searchParams] = useSearchParams();
@@ -6,5 +6,5 @@ function useUrlPosition() {
   const lng = searchParams.get("lng");
   return [lat, lng];
 }
-console.log(useNavigate);
+// console.log(useNavigate);
 export default useUrlPosition;

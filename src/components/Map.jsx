@@ -13,9 +13,12 @@ import { useCities } from "./contexts/CitiesContext";
 import { useGeolocation } from "./hooks/useGeolocation";
 import useUrlPosition from "./hooks/useUrlPosition";
 import Button from "./Button";
+import { latLng } from "leaflet";
+console.log(latLng);
 
 function Map() {
   const { cities } = useCities();
+
   const [mapPosition, setMapPosition] = useState([40, 20]);
   const [searchParams, setSearchParams] = useSearchParams();
   const {
@@ -24,9 +27,13 @@ function Map() {
     getPosition,
   } = useGeolocation();
 
+  const [cyty, setCyty] = useState("");
+  console.log(cyty);
+
   console.log(searchParams);
 
   const { mapLat, mapLng } = useUrlPosition();
+  // console.log(useUrlPosition);
 
   // const mapLng = searchParams.get("lat");
   // const mapLat = searchParams.get("lng");
@@ -69,17 +76,24 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        {cities.map((city) => (
-          <Marker
-            position={[city.position.lat, city.position.lng]}
-            key={city.id}
-          >
-            <Popup>
-              <span>{city.emoji}</span>
-              <span>{city.cityName}</span>
-            </Popup>
-          </Marker>
-        ))}
+
+        {cities.map(
+          (city) => (
+            setCyty(city.position.lat),
+            (
+              <Marker
+                position={[city.position.lat, city.position.lng]}
+                key={city.id}
+              >
+                <Popup>
+                  <span>{city.emoji}</span>
+                  <span>{city.cityName}</span>
+                </Popup>
+              </Marker>
+            )
+          )
+        )}
+
         <ChangeCenter position={[mapLat || 40, mapLng || 0]} />
         <DetectClick setSearchParams={setSearchParams} />
       </MapContainer>
